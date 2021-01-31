@@ -39,5 +39,17 @@ namespace AudioLejatszo
                 fileDialog.FileNames.ToList().ForEach(x => openFilePaths.Add(x));
             }
         }
+
+        private void PlayStop_Click(object sender, RoutedEventArgs e)
+        {
+            if ((string)PlayStop.Content == "Play" && openFilePaths.Count != 0)
+            {
+                PlayStop.Content = "Stop";
+            }
+            else if ((string)PlayStop.Content == "Stop")
+            {
+                PlayStop.Content = "Play";
+            }
+        }
     }
 }

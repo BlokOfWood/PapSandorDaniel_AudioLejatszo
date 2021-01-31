@@ -11,7 +11,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Slider HorizontalAlignment="Left" Margin="258,309,0,0" VerticalAlignment="Top" Width="273" Height="18"/>
-        <Button x:Name="PlayStop" Content="Button" HorizontalAlignment="Left" Margin="358,283,0,0" VerticalAlignment="Top" Width="75" Height="21"/>
+        <Button x:Name="PlayStop" Content="Play" HorizontalAlignment="Left" Margin="358,283,0,0" VerticalAlignment="Top" Width="75" Height="21" Click="PlayStop_Click"/>
         <Button x:Name="FileOpen" Content="Fájlok&#xD;&#xA;Megnyitása" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" VerticalAlignment="Top" Width="87" Click="FileOpen_Click"/>
         <Button x:Name="FolderOpen" Content="Mappa &#xD;&#xA;Megnyitása" HorizontalAlignment="Left" Height="39" Margin="120,10,0,0" VerticalAlignment="Top" Width="87" Click="Button_Click"/>
         <ListBox x:Name="OpenSongList" HorizontalAlignment="Center" Height="166" Margin="0,85,0,0" VerticalAlignment="Top" Width="482"/>
