@@ -30,8 +30,7 @@ namespace AudioLejatszo
             OpenSongList.SelectedIndex++;
             if (OpenSongList.SelectedIndex != OpenSongList.Items.Count-1)
             {
-                _mediaPlayer.Open(new Uri((string)OpenSongList.SelectedItem));
-                Play();
+                PlayCurrentSong();
             }
             else
             {
@@ -80,8 +79,7 @@ namespace AudioLejatszo
             if (OpenSongList.SelectedIndex == -1) return;
             try
             {
-                _mediaPlayer.Open(new Uri((string)OpenSongList.SelectedItem));
-                Play();
+                PlayCurrentSong();
             }
             catch(Exception)
             {
@@ -103,6 +101,12 @@ namespace AudioLejatszo
             _mediaPlayer.Pause();
         }
 
+        void PlayCurrentSong()
+        {
+            _mediaPlayer.Open(new Uri((string)OpenSongList.SelectedItem));
+            Play();
+        }
+
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             Pause();
@@ -110,14 +114,18 @@ namespace AudioLejatszo
             _mediaPlayer.Stop();
         }
 
-        private void Prev(object sender, RoutedEventArgs e)
+        private void Prev_Click(object sender, RoutedEventArgs e)
         {
-
+            if (OpenSongList.SelectedIndex != 0)
+                OpenSongList.SelectedIndex--;
+            PlayCurrentSong();
         }
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-
+            if (OpenSongList.SelectedIndex != OpenSongList.Items.Count-1)
+                OpenSongList.SelectedIndex++;
+            PlayCurrentSong();
         }
     }
 }
