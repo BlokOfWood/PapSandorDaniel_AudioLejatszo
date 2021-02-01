@@ -40,11 +40,6 @@ namespace AudioLejatszo
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void FileOpen_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog()
@@ -126,6 +121,16 @@ namespace AudioLejatszo
             if (OpenSongList.SelectedIndex != OpenSongList.Items.Count-1)
                 OpenSongList.SelectedIndex++;
             PlayCurrentSong();
+        }
+
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            _mediaPlayer.Volume = e.NewValue;
+        }
+
+        private void FolderOpen_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
