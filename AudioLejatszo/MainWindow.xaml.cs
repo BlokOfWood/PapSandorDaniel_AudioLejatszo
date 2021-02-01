@@ -103,6 +103,21 @@ namespace AudioLejatszo
             _mediaPlayer.Pause();
         }
 
-        
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            Pause();
+            OpenSongList.SelectedIndex = -1;
+            _mediaPlayer.Stop();
+        }
+
+        private void Prev(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
