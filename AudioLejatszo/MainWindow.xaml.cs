@@ -35,23 +35,25 @@ namespace AudioLejatszo
                 _mediaPlayerTimer.Interval = TimeSpan.FromMilliseconds(200);
                 _mediaPlayerTimer.Tick += UpdateTime;
                 _mediaPlayerTimer.Start();
+                timeSlider.IsEnabled = true;
             }
         }
 
         void UpdateTime(object sender, EventArgs e)
         {
             timeSlider.Value = _mediaPlayer.Position.TotalMilliseconds;
+            if(_mediaPlayer.NaturalDuration.HasTimeSpan)
+            timeDisplay.Text = $"{_mediaPlayer.Position.ToString(@"m\:ss")}/{_mediaPlayer.NaturalDuration.TimeSpan.ToString(@"m\:ss")}";
+            
         }
-
-
 
         private void _mediaPlayer_MediaEnded(object sender, EventArgs e)
         {
             if (OpenSongList.SelectedIndex == -1) return;
 
-            OpenSongList.SelectedIndex++;
-            if (OpenSongList.SelectedIndex != OpenSongList.Items.Count-1)
+            if (OpenSongList.SelectedIndex != OpenSongList.Items.Count - 1)
             {
+                OpenSongList.SelectedIndex++;
                 PlayCurrentSong();
             }
             else
@@ -59,6 +61,7 @@ namespace AudioLejatszo
                 Pause();
                 OpenSongList.SelectedIndex = -1;
                 _mediaPlayer.Stop();
+                timeSlider.IsEnabled = false;
             }
         }
 
@@ -77,7 +80,7 @@ namespace AudioLejatszo
                     _playlist.Add(x);
                 });
                 OpenSongList.SelectedIndex = 0;
-                
+                Play();
             }
         }
 
