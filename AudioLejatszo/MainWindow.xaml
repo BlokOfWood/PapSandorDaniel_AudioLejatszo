@@ -10,7 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Slider HorizontalAlignment="Center" Margin="0,357,0,0" VerticalAlignment="Top" Width="300" Height="18"/>
+        <Slider x:Name="timeSlider" HorizontalAlignment="Center" Margin="0,357,0,0" VerticalAlignment="Top" Width="300" Height="18" ValueChanged="timeSlider_ValueChanged" TickFrequency="10" Cursor="Arrow"/>
         <Button x:Name="PlayStop" Content="Play" HorizontalAlignment="Center" Margin="0,283,0,0" VerticalAlignment="Top" Width="75" Height="21" Click="PlayStop_Click"/>
         <Button x:Name="FileOpen" Content="Fájlok&#xD;&#xA;Megnyitása" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" VerticalAlignment="Top" Width="87" Click="FileOpen_Click"/>
         <Button x:Name="FolderOpen" Content="Mappa &#xD;&#xA;Megnyitása" HorizontalAlignment="Left" Height="39" Margin="120,10,0,0" VerticalAlignment="Top" Width="87" Click="FolderOpen_Click"/>
@@ -20,6 +20,7 @@
         <Button x:Name="Next" Content="Next" HorizontalAlignment="Center" Margin="200,283,0,0" VerticalAlignment="Top" Width="75" Height="21" Click="Next_Click"/>
         <Slider x:Name="VolumeSlider" HorizontalAlignment="Right" Margin="0,357,39.286,0" VerticalAlignment="Top" Width="87" Height="18" SmallChange="0.01" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.5"/>
         <TextBlock HorizontalAlignment="Right" Margin="0,0,39.286,69.714" TextWrapping="Wrap" Text="Hangerő" VerticalAlignment="Bottom" Width="87" Height="17" TextAlignment="Center"/>
+        <TextBlock x:Name="timeDisplay" HorizontalAlignment="Center" Margin="247,335,247.286,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextAlignment="Center" Height="16"><Run Text="0:00/0:00"/><LineBreak/><Run/></TextBlock>
 
     </Grid>
 </Window>

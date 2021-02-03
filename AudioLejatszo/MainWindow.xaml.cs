@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace AudioLejatszo
 {
@@ -15,13 +17,33 @@ namespace AudioLejatszo
     {
         BindingList<string> _playlist = new BindingList<string>();
         MediaPlayer _mediaPlayer = new MediaPlayer();
+        DispatcherTimer _mediaPlayerTimer = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
             OpenSongList.ItemsSource = _playlist;
+            _mediaPlayer.MediaOpened += _mediaPlayer_MediaOpened;
             _mediaPlayer.MediaEnded += _mediaPlayer_MediaEnded;
         }
+
+        private void _mediaPlayer_MediaOpened(object sender, EventArgs e)
+        {
+            if (_mediaPlayer.NaturalDuration.HasTimeSpan)
+            {
+                timeSlider.Maximum = _mediaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds;
+                _mediaPlayerTimer.Interval = TimeSpan.FromMilliseconds(200);
+                _mediaPlayerTimer.Tick += UpdateTime;
+                _mediaPlayerTimer.Start();
+            }
+        }
+
+        void UpdateTime(object sender, EventArgs e)
+        {
+            timeSlider.Value = _mediaPlayer.Position.TotalMilliseconds;
+        }
+
+
 
         private void _mediaPlayer_MediaEnded(object sender, EventArgs e)
         {
@@ -54,6 +76,8 @@ namespace AudioLejatszo
                 { 
                     _playlist.Add(x);
                 });
+                OpenSongList.SelectedIndex = 0;
+                
             }
         }
 
@@ -131,6 +155,11 @@ namespace AudioLejatszo
         private void FolderOpen_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void timeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            _mediaPlayer.Position = TimeSpan.FromMilliseconds(e.NewValue);
         }
     }
 }
