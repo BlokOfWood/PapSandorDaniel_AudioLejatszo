@@ -45,7 +45,8 @@ namespace AudioLejatszo
             timeSlider.Value = _mediaPlayer.Position.TotalMilliseconds;
             if(_mediaPlayer.NaturalDuration.HasTimeSpan)
             timeDisplay.Text = $"{_mediaPlayer.Position.ToString(@"m\:ss")}/{_mediaPlayer.NaturalDuration.TimeSpan.ToString(@"m\:ss")}";
-            
+            else
+            timeDisplay.Text = "0:00/0:00";
         }
 
         private void _mediaPlayer_MediaEnded(object sender, EventArgs e)
