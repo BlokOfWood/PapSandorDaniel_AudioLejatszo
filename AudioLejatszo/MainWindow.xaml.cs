@@ -43,7 +43,7 @@ namespace AudioLejatszo
         void UpdateTime(object sender, EventArgs e)
         {
             timeSlider.Value = _mediaPlayer.Position.TotalMilliseconds;
-            if(_mediaPlayer.NaturalDuration.HasTimeSpan)
+            if(_mediaPlayer.NaturalDuration.HasTimeSpan && !_mediaPlayer.IsMuted)
             timeDisplay.Text = $"{_mediaPlayer.Position.ToString(@"m\:ss")}/{_mediaPlayer.NaturalDuration.TimeSpan.ToString(@"m\:ss")}";
             else
             timeDisplay.Text = "0:00/0:00";
@@ -117,6 +117,8 @@ namespace AudioLejatszo
 
             PlayStop.Content = "Pause";
             _mediaPlayer.Play();
+
+            _mediaPlayer.IsMuted = false;
         }
 
         void Pause()
@@ -127,6 +129,9 @@ namespace AudioLejatszo
 
         void PlayCurrentSong()
         {
+            if (OpenSongList.SelectedItem == null)
+                return;
+
             _mediaPlayer.Open(new Uri((string)OpenSongList.SelectedItem));
             Play();
         }
@@ -136,6 +141,9 @@ namespace AudioLejatszo
             Pause();
             OpenSongList.SelectedIndex = -1;
             _mediaPlayer.Stop();
+
+            timeDisplay.Text = "0:00/0:00";
+            _mediaPlayer.IsMuted = true;
         }
 
         private void Prev_Click(object sender, RoutedEventArgs e)
@@ -175,9 +183,12 @@ namespace AudioLejatszo
             _mediaPlayer.Position = TimeSpan.FromMilliseconds(e.NewValue);
         }
 
-        private void FolderOpen_Click_1(object sender, RoutedEventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            if (OpenSongList.SelectedIndex != -1)
+                _playlist.RemoveAt(OpenSongList.SelectedIndex);
 
+            Stop_Click(null, null);
         }
     }
 }
