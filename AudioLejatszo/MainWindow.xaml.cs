@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -67,7 +68,7 @@ namespace AudioLejatszo
 
         private void FileOpen_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog()
+            Microsoft.Win32.OpenFileDialog fileDialog = new Microsoft.Win32.OpenFileDialog()
             {
                 Multiselect = true,
                 Filter = "Audio Files (*.mp3; *.flac; *.wav) |*.mp3;*.flac;*.wav"
@@ -105,7 +106,7 @@ namespace AudioLejatszo
             }
             catch(Exception)
             {
-                MessageBox.Show("Nem lehet lejátszani a kiválasztott fájlt!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Nem lehet lejátszani a kiválasztott fájlt!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -157,12 +158,25 @@ namespace AudioLejatszo
 
         private void FolderOpen_Click(object sender, RoutedEventArgs e)
         {
-
+            //Valamilyen csodálatos okból a wpf-ben nincsen natív folder browser, legalábbis ezalatt a .net verzió alatt, 
+            //szóval a windows formsosat kell használnom, ami egy kicsit necces, de annyira nagyon más egyszerű alternatíva nincs.
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.ShowDialog();
+            string[] musicFiles = Directory.GetFiles(folderBrowserDialog.SelectedPath);
+            musicFiles.ToList().ForEach(x => { 
+                if (x.EndsWith(".mp3") || x.EndsWith(".flac") || x.EndsWith(".wav"))
+                    _playlist.Add(x); 
+            });
         }
 
         private void timeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             _mediaPlayer.Position = TimeSpan.FromMilliseconds(e.NewValue);
+        }
+
+        private void FolderOpen_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

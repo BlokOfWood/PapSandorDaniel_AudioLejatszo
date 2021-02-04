@@ -20,6 +20,7 @@
         <Slider x:Name="VolumeSlider" HorizontalAlignment="Right" Margin="0,357,39.286,0" VerticalAlignment="Top" Width="87" Height="18" SmallChange="0.01" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.5"/>
         <TextBlock HorizontalAlignment="Right" Margin="0,0,39.286,69.714" TextWrapping="Wrap" Text="Hangerő" VerticalAlignment="Bottom" Width="87" Height="17" TextAlignment="Center"/>
         <TextBlock x:Name="timeDisplay" HorizontalAlignment="Center" Margin="247,335,247.286,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextAlignment="Center" Height="16"><Run Text="0:00/0:00"/><LineBreak/><Run/></TextBlock>
+        <Button x:Name="FolderOpen" Content="Mappa&#xA;Megnyitása" HorizontalAlignment="Left" Height="39" Margin="10,66,0,0" VerticalAlignment="Top" Width="87" Click="FolderOpen_Click"/>
 
     </Grid>
 </Window>
